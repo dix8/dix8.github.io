@@ -1,8 +1,6 @@
-# Github代理站点
+# Ac小站
 
-#### github代理
-- github.91ray.asia
+#### Ac小站
+- github.kek1.cn
 
-#### raw.githubusercontent.com代理
-- raw.91ray.asia
 
