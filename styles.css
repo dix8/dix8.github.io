@@ -119,10 +119,22 @@ h2 {
     color: #666;
     text-decoration: none;
     font-size: 0.9rem;
+    display: block;
+    margin-bottom: 0.5rem;
 }
 
 .beian:hover {
     color: #333;
+}
+
+.copyright {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] .copyright {
+    color: #999;
 }
 
 /* 主题切换开关样式 */
