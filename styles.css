@@ -102,6 +102,11 @@ h2 {
     section {
         padding: 1.5rem;
     }
+    
+    .theme-switch {
+        bottom: 80px;
+        right: 15px;
+    }
 }
 
 .footer {
@@ -118,4 +123,93 @@ h2 {
 
 .beian:hover {
     color: #333;
+}
+
+/* 主题切换开关样式 */
+.theme-switch {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    background-color: #83d8ff;
+    border-radius: 20px;
+    cursor: pointer;
+    padding: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.switch i {
+    position: absolute;
+    color: #fff;
+    transition: transform 0.3s ease;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+
+.switch .fa-sun {
+    left: 8px;
+}
+
+.switch .fa-moon {
+    right: 8px;
+    display: none;
+}
+
+#theme-toggle {
+    display: none;
+}
+
+/* 暗色主题样式 */
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #fff;
+    --card-bg: #2d2d2d;
+    --border-color: #444;
+    --shadow-color: rgba(255,255,255,0.05);
+}
+
+[data-theme="dark"] body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] section {
+    background: var(--card-bg);
+    box-shadow: 0 0 20px var(--shadow-color);
+}
+
+[data-theme="dark"] .project-card {
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .social-links a {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .switch {
+    background-color: #365;
+}
+
+[data-theme="dark"] .fa-sun {
+    display: none;
+}
+
+[data-theme="dark"] .fa-moon {
+    display: block;
+}
+
+[data-theme="dark"] .beian {
+    color: #999;
+}
+
+[data-theme="dark"] h2 {
+    color: var(--text-color);
 } 
