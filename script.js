@@ -1,25 +1,52 @@
 document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');
     
-    // 检查本地存储中的主题设置
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme) {
-        document.documentElement.setAttribute('data-theme', currentTheme);
-        if (currentTheme === 'dark') {
-            themeToggle.checked = true;
+    // 检查是否应该使用夜间模式
+    function shouldUseDarkMode() {
+        const hour = new Date().getHours();
+        return hour >= 18 || hour < 6;
+    }
+
+    // 设置主题
+    function setTheme(isDark, updateToggle = true) {
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        if (updateToggle) {
+            themeToggle.checked = isDark;
         }
     }
 
-    // 切换主题
-    themeToggle.addEventListener('change', (e) => {
-        if (e.target.checked) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
+    // 初始化主题
+    function initializeTheme() {
+        // 检查本地存储中是否有手动设置的主题
+        const storedTheme = localStorage.getItem('theme');
+        const isManuallySet = localStorage.getItem('isManuallySet');
+
+        if (isManuallySet === 'true' && storedTheme) {
+            // 如果用户手动设置过主题，使用存储的设置
+            setTheme(storedTheme === 'dark');
         } else {
-            document.documentElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
+            // 否则根据时间自动设置
+            setTheme(shouldUseDarkMode());
         }
+    }
+
+    // 监听主题切换
+    themeToggle.addEventListener('change', (e) => {
+        setTheme(e.target.checked);
+        // 标记为手动设置
+        localStorage.setItem('isManuallySet', 'true');
     });
+
+    // 初始化主题
+    initializeTheme();
+
+    // 每分钟检查一次时间（如果没有手动设置主题）
+    setInterval(() => {
+        if (localStorage.getItem('isManuallySet') !== 'true') {
+            setTheme(shouldUseDarkMode());
+        }
+    }, 60000); // 每分钟检查一次
 
     // 微信二维码弹窗功能
     const modal = document.getElementById('wechat-modal');
